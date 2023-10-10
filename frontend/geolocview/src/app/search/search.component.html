@@ -1,0 +1,20 @@
+<form [formGroup]="searchForm" (ngSubmit)="performSearch()">
+    <label for="query">Search Location:</label>
+    <input id="query" formControlName="query" placeholder="Type location...">
+    <button type="submit">Search</button>
+  </form>
+  
+  <section *ngIf="results.length > 0">
+    <h2>Results:</h2>
+    <ul>
+      <li *ngFor="let result of results">
+        {{ result }}
+      </li>
+    </ul>
+  </section>
+  
+  <section *ngIf="results.length === 0">
+    <p>No results found.</p>
+  </section>
+  
+  
