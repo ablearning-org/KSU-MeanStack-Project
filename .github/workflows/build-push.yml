@@ -21,16 +21,16 @@ jobs:
     # Build and push the backend container
     - name: Build Backend Container
       run: |
-        docker build -t us-docker.pkg.dev/third-nature-400716/backend:$GITHUB_SHA ./backend
-        docker push us-docker.pkg.dev/third-nature-400716/backend:$GITHUB_SHA
+        docker build -t gcr.io/third-nature-400716/backend:$GITHUB_SHA ./backend
+        docker push gcr.io/third-nature-400716/backend:$GITHUB_SHA
       # docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:$GITHUB_SHA ./backend
       # docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:$GITHUB_SHA
 
     # Build and push the frontend container
     - name: Build Frontend Container
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend:$GITHUB_SHA ./frontend/geolocview
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend:$GITHUB_SHA
+        docker build -t gcr.io/third-nature-400716/frontend:$GITHUB_SHA ./frontend/geolocview
+        docker push gcr.io/third-nature-400716/frontend:$GITHUB_SHA
 
     # Deploy to GKE (update this according to your GKE setup)
     - name: Deploy to GKE
