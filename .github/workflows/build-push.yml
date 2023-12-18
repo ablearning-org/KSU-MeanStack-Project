@@ -21,8 +21,10 @@ jobs:
     # Build and push the backend container
     - name: Build Backend Container
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:$GITHUB_SHA ./backend
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:$GITHUB_SHA
+        docker build -t us-docker.pkg.dev/third-nature-400716/backend:$GITHUB_SHA ./backend
+        docker push us-docker.pkg.dev/third-nature-400716/backend:$GITHUB_SHA
+      # docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:$GITHUB_SHA ./backend
+      # docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:$GITHUB_SHA
 
     # Build and push the frontend container
     - name: Build Frontend Container
