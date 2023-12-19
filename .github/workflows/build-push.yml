@@ -23,6 +23,10 @@ jobs:
         workload_identity_provider: 'projects/573325332123/locations/global/workloadIdentityPools/geolocview-identity-pool/'
         service_account: 'geolocview-serviceaccount@third-nature-400716.iam.gserviceaccount.com'
 
+    - name: Configure Docker to use gcloud as a credential helper
+      run: |
+        gcloud auth configure-docker
+
     - name: Build Backend Container
       run: |
         docker build -t gcr.io/third-nature-400716/backend:$GITHUB_SHA ./backend
