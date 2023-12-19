@@ -5,9 +5,6 @@ on:
     branches:
       - main  # or your default branch
 
-env:
-  GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-  GKE_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
 
 jobs:
   build-and-deploy:
@@ -15,26 +12,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0.2.0
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
       with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        create_credentials_file: true
+        workload_identity_provider: 'projects/573325332123/locations/global/workloadIdentityPools/geolocview-identity-pool/'
+        service_account: 'geolocview-serviceaccount@third-nature-400716.iam.gserviceaccount.com'
 
-    - name: Install jq
-      run: sudo apt-get install jq
-
-    - name: Prepare GCP Service Account Key
-      run: |
-        SA_KEY_JSON=$(cat path-to-key.json | jq -c .)
-        echo "GCP_SA_KEY=$SA_KEY_JSON" >> $GITHUB_ENV
-
-    - name: Authenticate Docker to GCR
-      run: |
-        echo "${{ secrets.GCP_SA_KEY }}" | docker login -u _json_key --password-stdin https://gcr.io
-
-    # Build and push the backend container
     - name: Build Backend Container
       run: |
         docker build -t gcr.io/third-nature-400716/backend:$GITHUB_SHA ./backend
