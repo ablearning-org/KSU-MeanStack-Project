@@ -20,7 +20,7 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         create_credentials_file: true
-        workload_identity_provider: 'projects/573325332123/locations/global/workloadIdentityPools/geolocview-identity-pool/'
+        workload_identity_provider: 'projects/573325332123/locations/global/workloadIdentityPools/geo-auth-1/providers/geo-ipd '
         service_account: 'geolocview-serviceaccount@third-nature-400716.iam.gserviceaccount.com'
 
     - name: Configure Docker to use gcloud as a credential helper
