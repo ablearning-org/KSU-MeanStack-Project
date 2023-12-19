@@ -7,4 +7,4 @@ COPY . .
 RUN npm run build
 
 FROM nginx:alpine
-COPY --from=build /app/dist/frontend/geolocview /usr/share/nginx/html
+COPY --from=build /app/dist/geolocview /usr/share/nginx/html
