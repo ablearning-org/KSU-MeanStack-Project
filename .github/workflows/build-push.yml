@@ -10,7 +10,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
-  
+
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -20,29 +20,23 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         create_credentials_file: true
-        workload_identity_provider: 'projects/573325332123/locations/global/workloadIdentityPools/github-actions-cicd/providers/githubprojects/573325332123/locations/global/workloadIdentityPools/github-actions-cicd/providers/github'
+        workload_identity_provider: 'projects/573325332123/locations/global/workloadIdentityPools/github-actions-cicd/providers/github'
         service_account: 'geolocview-serviceaccount@third-nature-400716.iam.gserviceaccount.com'
 
     - name: Configure Docker to use gcloud as a credential helper
-      run: |
-        gcloud auth configure-docker
+      run: gcloud auth configure-docker
 
     - name: Build Backend Container
       run: |
         docker build -t gcr.io/third-nature-400716/backend:$GITHUB_SHA ./backend
         docker push gcr.io/third-nature-400716/backend:$GITHUB_SHA
-      # docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:$GITHUB_SHA ./backend
-      # docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:$GITHUB_SHA
 
-    # Build and push the frontend container
     - name: Build Frontend Container
       run: |
         docker build -t gcr.io/third-nature-400716/frontend:$GITHUB_SHA ./frontend/geolocview
         docker push gcr.io/third-nature-400716/frontend:$GITHUB_SHA
 
-    # Deploy to GKE (update this according to your GKE setup)
     - name: Deploy to GKE
       run: |
-        kubectl set image deployment/backend-deployment backend=gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:$GITHUB_SHA
-        kubectl set image deployment/frontend-deployment frontend=gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend:$GITHUB_SHA
-   
+        kubectl set image deployment/backend-deployment backend=gcr.io/third-nature-400716/backend:$GITHUB_SHA
+        kubectl set image deployment/frontend-deployment frontend=gcr.io/third-nature-400716/frontend:$GITHUB_SHA
