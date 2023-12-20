@@ -20,6 +20,9 @@ RUN npm run build
 # Use official nginx image as the base image
 FROM nginx:apline
 
+# Copy the custom default.conf
+COPY default.conf /etc/nginx/conf.d/
+
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /usr/local/app/dist/geolocview /usr/share/nginx/html
 
