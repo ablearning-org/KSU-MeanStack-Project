@@ -26,9 +26,10 @@ jobs:
     - name: Configure Docker to use gcloud as a credential helper
       run: gcloud auth configure-docker
 
-    # Install gke-gcloud-auth-plugin
+    # Install gke-gcloud-auth-plugin (if necessary)
     - name: Install gke-gcloud-auth-plugin
-      run: sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+      run: |
+        gcloud components install gke-gcloud-auth-plugin
 
     - name: Build Backend Container
       run: |
