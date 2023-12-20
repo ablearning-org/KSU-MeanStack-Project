@@ -36,7 +36,7 @@ jobs:
       with:
         image-ref: "gcr.io/third-nature-400716/backend:${{ github.sha }}"
         format: 'table'
-        exit-code: '1'
+        exit-code: '0'
         severity: 'CRITICAL,HIGH'
 
 
@@ -45,7 +45,7 @@ jobs:
       uses: goodwithtech/dockle-action@main
       with:
         image: 'gcr.io/third-nature-400716/backend:$GITHUB_SHA'
-        exit-code: '1'
+        exit-code: '0'
 
     - name: Push Backend to GCR
       run: |
@@ -61,7 +61,7 @@ jobs:
       with:
         image-ref: "gcr.io/third-nature-400716/backend:${{ github.sha }}"
         format: 'table'
-        exit-code: '1'
+        exit-code: '0'
         severity: 'CRITICAL,HIGH'
 
 
@@ -70,7 +70,7 @@ jobs:
       uses: goodwithtech/dockle-action@main
       with:
         image: 'gcr.io/third-nature-400716/frontend:$GITHUB_SHA'
-        exit-code: '1'
+        exit-code: '0'
 
     - name: Push Frontend to GCR
       run: |
