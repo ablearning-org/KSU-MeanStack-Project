@@ -92,4 +92,9 @@ jobs:
       run: |
         kubectl apply -f frontend/geolocview/frontend-deployment.yaml
 
+
+    - name: Deploy Frontend Service to GKE
+      run: |
+        kubectl apply -f frontend/geolocview/frontend-service.yaml
+
     
