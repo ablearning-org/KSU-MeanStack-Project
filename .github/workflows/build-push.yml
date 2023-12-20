@@ -44,7 +44,7 @@ jobs:
     - name: Run Dockle
       uses: goodwithtech/dockle-action@main
       with:
-        image: 'gcr.io/third-nature-400716/backend:$GITHUB_SHA'
+        image: "gcr.io/third-nature-400716/backend:${{ github.sha }}"
         exit-code: '0'
 
     - name: Push Backend to GCR
@@ -69,7 +69,7 @@ jobs:
     - name: Run Dockle
       uses: goodwithtech/dockle-action@main
       with:
-        image: 'gcr.io/third-nature-400716/frontend:$GITHUB_SHA'
+        image: "gcr.io/third-nature-400716/frontend:${{ github.sha }}"
         exit-code: '0'
 
     - name: Push Frontend to GCR
