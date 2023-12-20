@@ -34,10 +34,11 @@ jobs:
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@0.0.6
       with:
-        image-ref: 'gcr.io/third-nature-400716/backend:$GITHUB_SHA'
+        image-ref: "gcr.io/third-nature-400716/backend:${{ github.sha }}"
         format: 'table'
         exit-code: '1'
-        ignore-unfixed: true
+        severity: 'CRITICAL,HIGH'
+
 
     # Dockle scan
     - name: Run Dockle
@@ -58,10 +59,11 @@ jobs:
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@0.0.6
       with:
-        image-ref: 'gcr.io/third-nature-400716/frontend:$GITHUB_SHA'
+        image-ref: "gcr.io/third-nature-400716/backend:${{ github.sha }}"
         format: 'table'
         exit-code: '1'
-        ignore-unfixed: true
+        severity: 'CRITICAL,HIGH'
+
 
     # Dockle scan
     - name: Run Dockle
