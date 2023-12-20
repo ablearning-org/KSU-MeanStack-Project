@@ -83,6 +83,13 @@ jobs:
     - name: Deploy to GKE
       run: |
         gcloud container clusters get-credentials geolocview-cluster-1 --zone us-east1 --project third-nature-400716
-        kubectl set image deployment/backend-deployment backend=gcr.io/third-nature-400716/backend:$GITHUB_SHA
-        kubectl set image deployment/frontend-deployment frontend=gcr.io/third-nature-400716/frontend:$GITHUB_SHA
 
+    - name: Deploy Backend to GKE
+      run: |
+        kubectl apply -f backend/backend-deployment.yaml
+
+    - name: Deploy Frontend to GKE
+      run: |
+        kubectl apply -f frontend/geolocview/frontend-deployment.yaml
+
+    
