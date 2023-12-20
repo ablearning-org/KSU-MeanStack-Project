@@ -29,14 +29,54 @@ jobs:
     - name: Build Backend Container
       run: |
         docker build -t gcr.io/third-nature-400716/backend:$GITHUB_SHA ./backend
-        docker push gcr.io/third-nature-400716/backend:$GITHUB_SHA
+        
+    # Trivy scan
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'gcr.io/third-nature-400716/backend:$GITHUB_SHA'
+        format: 'table'
+        exit-code: '1'
+        ignore-unfixed: true
 
+    # Dockle scan
+    - name: Run Dockle
+      uses: goodwithtech/dockle-action@master
+      with:
+        image: 'gcr.io/third-nature-400716/backend:$GITHUB_SHA'
+        exit-code: '1'
+
+    - name: Push Backend to GCR
+      run: |
+        docker push gcr.io/third-nature-400716/backend:$GITHUB_SHA
+        
     - name: Build Frontend Container
       run: |
         docker build -t gcr.io/third-nature-400716/frontend:$GITHUB_SHA ./frontend/geolocview
+
+    # Trivy scan
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'gcr.io/third-nature-400716/frontend:$GITHUB_SHA'
+        format: 'table'
+        exit-code: '1'
+        ignore-unfixed: true
+
+    # Dockle scan
+    - name: Run Dockle
+      uses: goodwithtech/dockle-action@master
+      with:
+        image: 'gcr.io/third-nature-400716/frontend:$GITHUB_SHA'
+        exit-code: '1'
+
+    - name: Push Frontend to GCR
+      run: |
         docker push gcr.io/third-nature-400716/frontend:$GITHUB_SHA
 
     - name: Deploy to GKE
       run: |
+        gcloud container clusters get-credentials geolocview-cluster-1 --zone us-east1 --project third-nature-400716
         kubectl set image deployment/backend-deployment backend=gcr.io/third-nature-400716/backend:$GITHUB_SHA
         kubectl set image deployment/frontend-deployment frontend=gcr.io/third-nature-400716/frontend:$GITHUB_SHA
+
