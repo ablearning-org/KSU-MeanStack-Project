@@ -9,4 +9,4 @@ spec:
   ports:
     - protocol: TCP
       port: 8080
-      targetPort: 4200  # Replace with your frontend container's port
+      targetPort: 8080  # Replace with your frontend container's port
