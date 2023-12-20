@@ -18,4 +18,4 @@ spec:
       - name: frontend
         image: gcr.io/third-nature-400716/frontend:a165652587b60fdc254e2b57be79f914a60c79aa
         ports:
-        - containerPort: 4200 # Replace with your frontend container's port
+        - containerPort: 8080 # Replace with your frontend container's port
