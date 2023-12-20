@@ -18,7 +18,7 @@ RUN npm run build
 # Stage 2: Serve app with nginx server
 
 # Use official nginx image as the base image
-FROM nginx:apline
+FROM nginx:latest
 
 # Copy the custom default.conf
 COPY default.conf /etc/nginx/conf.d/
