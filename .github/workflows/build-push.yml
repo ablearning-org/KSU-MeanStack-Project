@@ -56,7 +56,7 @@ jobs:
 
     # Trivy scan
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@v0.0.6
+      uses: aquasecurity/trivy-action@0.0.6
       with:
         image-ref: 'gcr.io/third-nature-400716/frontend:$GITHUB_SHA'
         format: 'table'
